@@ -21,6 +21,7 @@ import p2o2.ifes.serra.model.Enum.EXeque;
 import p2o2.ifes.serra.model.cdp.Game;
 import p2o2.ifes.serra.model.cdp.Peca;
 import p2o2.ifes.serra.util.LeitorUtil;
+import p2o2.ifes.serra.util.VerificadorEntrada;
 import p2o2.ifes.serra.view.cih.JogadaView;
 
 /**
@@ -48,8 +49,8 @@ public class JogadorPretoState implements StateInterface {
 		System.out.println(" ");
 
 		jogadaView.show();
-		int opcaoMenu = LeitorUtil.lervalorInteiro();
-		verificaOpcaoJogada(opcaoMenu);
+		int opcaoMenu;
+		opcaoMenu = verificaOpcaoJogada();
 
 		if (opcaoMenu < 5) {
 
@@ -120,8 +121,8 @@ public class JogadorPretoState implements StateInterface {
 		String jogada;
 		EXeque verificaXeque = jogo.getTabuleiro().verificaXeque(EPlayerColor.black);
 		while (!jogadaValida || verificaXeque.equals(EXeque.Xeque)) {
-			System.out.println("Jogador Preto, faça sua jogada!");
-			jogada = LeitorUtil.lervalorString();
+			
+			jogada = efetuarJogada();
 			System.out.println("Sua Jogada foi: " + jogada);
 			if (jogada.equals("O-O") || jogada.equals("O-O-O")) {
 				jogadaValida = game.jogada(game, jogada);
@@ -131,26 +132,44 @@ public class JogadorPretoState implements StateInterface {
 		}
 		return verificaXeque;
 	}
-
-	protected void verificaOpcaoJogada(int opcaoMainMenu) {
-		switch (opcaoMainMenu) {
-			case 1:
-				jogadaMenu = EJogadaMenu.Jogar;
-				break;
-			case 2:
-				jogadaMenu = EJogadaMenu.Empate;
-				break;
-			case 3:
-				jogadaMenu = EJogadaMenu.Desistir;
-				break;
-			case 4:
-				jogadaMenu = EJogadaMenu.Salvar;
-				break;
-			default:
-				jogadaView.mensagemOpcaoInvalida();
-				jogadaView.mensagemFim();
-				break;
+	
+	private String efetuarJogada() {
+		System.out.println("Jogador Preto, faça sua jogada!");
+		String jogada = LeitorUtil.lervalorString();
+		
+		while (!VerificadorEntrada.verificaEntradaJogada(jogada)) {
+			System.out.println("Jogador Preto, faça sua jogada!");
+			jogada = LeitorUtil.lervalorString();
 		}
+		
+		return jogada;
+	}
 
+	protected int verificaOpcaoJogada() {
+		int opcaoMainMenu = LeitorUtil.lervalorInteiro();
+		boolean conseguiu = false;
+
+		while (!conseguiu) {
+			switch (opcaoMainMenu) {
+				case 1:
+					jogadaMenu = EJogadaMenu.Jogar;
+					break;
+				case 2:
+					jogadaMenu = EJogadaMenu.Empate;
+					break;
+				case 3:
+					jogadaMenu = EJogadaMenu.Desistir;
+					break;
+				case 4:
+					jogadaMenu = EJogadaMenu.Salvar;
+					break;
+				default:
+					jogadaView.mensagemOpcaoInvalida();
+					opcaoMainMenu = LeitorUtil.lervalorInteiro();
+					jogadaView.mensagemFim();
+					break;
+			}
+		}
+		return opcaoMainMenu;
 	}
 }

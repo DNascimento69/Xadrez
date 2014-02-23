@@ -20,6 +20,7 @@ import p2o2.ifes.serra.model.cdp.Game;
 import p2o2.ifes.serra.model.cdp.Jogador;
 import p2o2.ifes.serra.model.cdp.Peca;
 import p2o2.ifes.serra.util.LeitorUtil;
+import p2o2.ifes.serra.util.VerificadorEntrada;
 import p2o2.ifes.serra.view.cih.JogadaView;
 
 /**
@@ -44,40 +45,38 @@ public class JogadorBrancoState implements StateInterface {
 		System.out.println(" ");
 		tcv.imprimirTabuleiro(jogo);
 		System.out.println(" ");
+		
 		jogadaView.show();
 		int opcaoMenu;
-
 		opcaoMenu = verificaOpcaoJogada();
 
 		if (jogadaMenu.equals(EJogadaMenu.Jogar)) {
-				EXeque e = this.jogar(this.jogo);
-				if (e.equals(EXeque.XequeMate)) {
-					this.finalizarJogo();
-					System.out.println("Jogo Salvo!");
-					System.out.println("Fim de jogo!");
-				}
-				if (this.jogo.getGameMode().equals(EGameModeMenu.TwoPlayerGame)) {
-					this.jogo.setJogadorDaVez(EPlayerColor.black);
-					this.jogo.setState(new JogadorPretoState(this.jogo));
-				} else {
-					this.jogo.setJogadorDaVez(EPlayerColor.zeus);
-					this.jogo.setState(new JogadorZeusState(this.jogo));
-				}
-			}
-			if (jogadaMenu.equals(EJogadaMenu.Empate)) {
-				this.jogo.setJogadorDaVez(EPlayerColor.black);
-				this.jogo.setState(new EmpateState(this.jogo));
-			}
-			if (jogadaMenu.equals(EJogadaMenu.Desistir)) {
-				this.jogo.setState(new DesistirState(this.jogo));
-			}
-			if (jogadaMenu.equals(EJogadaMenu.Salvar)) {
-				this.salvar();
+			EXeque e = this.jogar(this.jogo);
+			if (e.equals(EXeque.XequeMate)) {
+				this.finalizarJogo();
 				System.out.println("Jogo Salvo!");
 				System.out.println("Fim de jogo!");
 			}
-
-
+			if (this.jogo.getGameMode().equals(EGameModeMenu.TwoPlayerGame)) {
+				this.jogo.setJogadorDaVez(EPlayerColor.black);
+				this.jogo.setState(new JogadorPretoState(this.jogo));
+			} else {
+				this.jogo.setJogadorDaVez(EPlayerColor.zeus);
+				this.jogo.setState(new JogadorZeusState(this.jogo));
+			}
+		}
+		if (jogadaMenu.equals(EJogadaMenu.Empate)) {
+			this.jogo.setJogadorDaVez(EPlayerColor.black);
+			this.jogo.setState(new EmpateState(this.jogo));
+		}
+		if (jogadaMenu.equals(EJogadaMenu.Desistir)) {
+			this.jogo.setState(new DesistirState(this.jogo));
+		}
+		if (jogadaMenu.equals(EJogadaMenu.Salvar)) {
+			this.salvar();
+			System.out.println("Jogo Salvo!");
+			System.out.println("Fim de jogo!");
+		}
 	}
 
 	protected void finalizarJogo() {
@@ -129,8 +128,8 @@ public class JogadorBrancoState implements StateInterface {
 		String jogada;
 		EXeque verificaXeque = jogo.getTabuleiro().verificaXeque(EPlayerColor.white);
 		while (!jogadaValida || verificaXeque.equals(EXeque.Xeque)) {
-			System.out.println("Jogador branco, faça sua jogada!");
-			jogada = LeitorUtil.lervalorString();
+			
+			jogada = efetuarJogada();
 			System.out.println("Sua jogada foi: " + jogada);
 			if (jogada.equals("O-O") || jogada.equals("O-O-O")) {
 				jogadaValida = game.jogada(game, jogada);
@@ -138,8 +137,19 @@ public class JogadorBrancoState implements StateInterface {
 				jogadaValida = game.jogada(jogada, EPlayerColor.white);
 			}
 		}
-
 		return verificaXeque;
+	}
+	
+	private String efetuarJogada() {
+		System.out.println("Jogador Branco, faça sua jogada!");
+		String jogada = LeitorUtil.lervalorString();
+		
+		while (!VerificadorEntrada.verificaEntradaJogada(jogada)) {
+			System.out.println("Jogador Branco, faça sua jogada!");
+			jogada = LeitorUtil.lervalorString();
+		}
+		
+		return jogada;
 	}
 
 	protected int verificaOpcaoJogada() {
