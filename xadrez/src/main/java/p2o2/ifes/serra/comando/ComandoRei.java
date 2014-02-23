@@ -25,14 +25,15 @@ public class ComandoRei implements ComandoMovimento {
 		this.movimentos.add(new StrategyMoveVerticalBaixo());
 		this.movimentos.add(new StrategyMoveHorizontalDireita());
 		this.movimentos.add(new StrategyMoveHorizontalEsquerda());
+		this.modificaLimitaçãoEstrategia(ELimiteCasas.UM);
 	}
 
 	public List<String> listaMovimentosPossiveis(Tabuleiro tabuleiro, Peca peca) {
-		List<String> movimentos = new LinkedList<String>();
-		for(Object m: movimentos) {
-			movimentos.addAll( ((StrategyMoveInterface)m).movePool(tabuleiro, peca) );
+		List<String> posicoes = new LinkedList<String>();
+		for(StrategyMoveInterface m: movimentos) {
+			posicoes.addAll(m.movePool(tabuleiro, peca) );
 		}
-		return movimentos;
+		return posicoes;
 	}
 
 	public void modificaLimitaçãoEstrategia(ELimiteCasas l) {

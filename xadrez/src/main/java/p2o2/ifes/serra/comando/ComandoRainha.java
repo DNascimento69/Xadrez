@@ -25,6 +25,7 @@ public class ComandoRainha implements ComandoMovimento {
 		this.movimentos.add(new StrategyMoveVerticalBaixo());
 		this.movimentos.add(new StrategyMoveHorizontalDireita());
 		this.movimentos.add(new StrategyMoveHorizontalEsquerda());
+		this.modificaLimitaçãoEstrategia(ELimiteCasas.OITO);
 	}
 
 	public List<String> listaMovimentosPossiveis(Tabuleiro tabuleiro, Peca peca) {

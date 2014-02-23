@@ -11,14 +11,13 @@ import p2o2.ifes.serra.model.cdp.Tabuleiro;
 import p2o2.ifes.serra.model.cdp.Peca;
 
 public class TabuleiroBuilder {
-        private int idGame;
+	private int idGame;
 	private Tabuleiro tabuleiro;
 
 	public TabuleiroBuilder(int id) {
 		this.tabuleiro = new Tabuleiro();
-                this.idGame = id;
+		this.idGame = id;
 	}
-	
 	
 	public void CriarPecas(){
 		List<Peca> listPecas = new ArrayList<Peca>();

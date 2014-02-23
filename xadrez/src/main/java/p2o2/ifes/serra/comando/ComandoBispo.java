@@ -17,19 +17,20 @@ public class ComandoBispo implements ComandoMovimento {
 	public ComandoBispo() {
 		this.movimentos.add(new StrategyMoveDiagonalCima());
 		this.movimentos.add(new StrategyMoveDiagonalBaixo());
+		this.modificaLimitaçãoEstrategia(ELimiteCasas.OITO);
 	}
 
 	public List<String> listaMovimentosPossiveis(Tabuleiro tabuleiro, Peca peca) {
-		List<String> movimentos = new LinkedList<String>();
-		for(Object m: movimentos) {
-			movimentos.addAll( ((StrategyMoveInterface)m).movePool(tabuleiro, peca) );
+		List<String> posicoes = new LinkedList<String>();
+		for(StrategyMoveInterface m: movimentos) {
+			posicoes.addAll(m.movePool(tabuleiro, peca));
 		}
-		return movimentos;
+		return posicoes;
 	}
 
 	public void modificaLimitaçãoEstrategia(ELimiteCasas l) {
-		for(Object m: movimentos) {
-			((StrategyMoveInterface)m).setLimitacao(ELimiteCasas.OITO);
+		for(StrategyMoveInterface m: movimentos) {
+			m.setLimitacao(ELimiteCasas.OITO);
 		}
 	}
 }

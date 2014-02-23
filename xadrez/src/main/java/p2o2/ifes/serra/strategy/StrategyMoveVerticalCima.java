@@ -14,8 +14,8 @@ public class StrategyMoveVerticalCima implements StrategyMoveInterface {
 	
 	public List<String> movePool (Tabuleiro tabuleiro, Peca peca) {
 		List<String> jogadasValidasLst = new LinkedList<String>();
-		int linhaAuxiliar = Integer.parseInt(peca.getPosicao().substring(0,1));
-		int colunaAuxiliar = Integer.parseInt(peca.getPosicao().substring(1));
+		int linhaAuxiliar = new Integer(peca.getPosicao().substring(0,1));
+		int colunaAuxiliar = new Integer(peca.getPosicao().substring(1));
 		String jogadaPossivel;
 		
 		int x = 1;

@@ -39,9 +39,6 @@ public class JogadorBrancoState implements StateInterface {
 	}
 
 	public void jogadaDaVez() {
-
-
-
 		System.out.println(" ");
 		System.out.println("Jogador branco é o seu turno!");
 		System.out.println(" ");
@@ -52,11 +49,7 @@ public class JogadorBrancoState implements StateInterface {
 
 		opcaoMenu = verificaOpcaoJogada();
 
-
-		if (opcaoMenu < 5) {
-			
-			if (jogadaMenu.equals(EJogadaMenu.Jogar)) {
-				
+		if (jogadaMenu.equals(EJogadaMenu.Jogar)) {
 				EXeque e = this.jogar(this.jogo);
 				if (e.equals(EXeque.XequeMate)) {
 					this.finalizarJogo();
@@ -84,7 +77,6 @@ public class JogadorBrancoState implements StateInterface {
 				System.out.println("Fim de jogo!");
 			}
 
-		}
 
 	}
 
@@ -136,7 +128,6 @@ public class JogadorBrancoState implements StateInterface {
 		boolean jogadaValida = false;
 		String jogada;
 		EXeque verificaXeque = jogo.getTabuleiro().verificaXeque(EPlayerColor.white);
-		System.out.println(">>>> passou");
 		while (!jogadaValida || verificaXeque.equals(EXeque.Xeque)) {
 			System.out.println("Jogador branco, faça sua jogada!");
 			jogada = LeitorUtil.lervalorString();
@@ -155,7 +146,7 @@ public class JogadorBrancoState implements StateInterface {
 		int opcaoMainMenu = LeitorUtil.lervalorInteiro();
 		boolean conseguiu = false;
 
-		while (conseguiu) {
+		while (!conseguiu) {
 			switch (opcaoMainMenu) {
 				case 1:
 					jogadaMenu = EJogadaMenu.Jogar;
@@ -175,11 +166,11 @@ public class JogadorBrancoState implements StateInterface {
 					return 4;
 				default:
 					jogadaView.mensagemOpcaoInvalida();
+					opcaoMainMenu = LeitorUtil.lervalorInteiro();
 					//jogadaView.mensagemFim();
 					break;
 			}
 		}
 		return 0;
-
 	}
 }

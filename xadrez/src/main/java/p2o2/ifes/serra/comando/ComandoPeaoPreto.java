@@ -10,7 +10,6 @@ import p2o2.ifes.serra.model.Enum.ELimiteCasas;
 import p2o2.ifes.serra.strategy.StrategyMoveDiagonalCima;
 import p2o2.ifes.serra.strategy.StrategyMoveVerticalCima;
 
-
 /**
  *
  * @author Vic
@@ -23,5 +22,4 @@ public class ComandoPeaoPreto extends ComandoPeao {
 		this.setLimitacao(ELimiteCasas.DOIS,0);
 		this.setLimitacao(ELimiteCasas.UM,1);
 	}
-    
 }

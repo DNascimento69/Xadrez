@@ -26,7 +26,7 @@ public class XadrezController extends AbstractXadrezController{
 		GameMaker gameMaker = new GameMaker(opcaoModoDeJogo ,jogadoreLst);
 		gameMaker.constructGame();
 		this.gameDaVez = gameMaker.getGame();
-                this.gameDaVez.setState(new JogadorBrancoState(gameDaVez));
+		this.gameDaVez.setState(new JogadorBrancoState(gameDaVez));
 	}
 	
 	public void load(String gameId) throws SQLException, ClassNotFoundException{

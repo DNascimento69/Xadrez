@@ -1,7 +1,5 @@
 package p2o2.ifes.serra.application;
 
-import java.sql.SQLException;
-
 public class Client {
 	
 	/**

@@ -17,8 +17,7 @@ public class ComandoCavalo implements ComandoMovimento {
 	}
 	
 	public List<String> listaMovimentosPossiveis(Tabuleiro t, Peca p) {
-		this.estrategiaMovimento.movePool(t, p);
-		return null;
+		return this.estrategiaMovimento.movePool(t, p);
 	}
 
 	public void modificaLimitaçãoEstrategia(ELimiteCasas l) {}
