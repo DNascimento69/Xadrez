@@ -24,7 +24,7 @@ public class StrategyMoveVerticalBaixo implements StrategyMoveInterface {
 			Peca pecaPos = tabuleiro.getPecaPosicao(linhaAuxiliar - x, colunaAuxiliar);
 			jogadaPossivel = Integer.toString(linhaAuxiliar - x) + Integer.toString(colunaAuxiliar);
 			if (pecaPos != null) {
-				if (peca.getCor().equals(pecaPos.getCor())) {
+				if (!peca.getCor().equals(pecaPos.getCor())) {
 					jogadasValidasLst.add(jogadaPossivel);
 				}
 				parar = true;

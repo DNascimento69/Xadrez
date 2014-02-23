@@ -24,7 +24,7 @@ public class StrategyMoveHorizontalDireita implements StrategyMoveInterface {
 			Peca pecaPos = tabuleiro.getPecaPosicao(linhaAuxiliar, colunaAuxiliar + x);
 			jogadaPossivel = Integer.toString(linhaAuxiliar) + Integer.toString(colunaAuxiliar + x);
 			if (pecaPos != null) {
-				if (peca.getCor().equals(pecaPos.getCor())) {
+				if (!peca.getCor().equals(pecaPos.getCor())) {
 					jogadasValidasLst.add(jogadaPossivel);
 				}
 				parar = true;
